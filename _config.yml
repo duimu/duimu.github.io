@@ -10,14 +10,12 @@ highlighter: rouge
 # Themes are encouraged to use these universal variables
 # so be sure to set them if your theme uses them.
 #
-title : Soot Spirits
+title : ¶ÔÄº
 tagline: Code, Science, Philosophy, Humor
 author :
-  name : Abhishek Nagekar
-  email : abhishek@nagekar.com
-  github : abhn
-  twitter : abhisheknagekar
-  feedburner : AbhishekN
+  name : duimu
+  email : duimu@163.com
+  github : duimu
 
 # The production_url is only used when full-domain names are needed
 # such as sitemap.txt
