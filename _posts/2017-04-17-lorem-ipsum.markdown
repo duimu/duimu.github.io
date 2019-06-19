@@ -1,21 +1,7 @@
 ---
-title: Lorem Ipsum
+title: 风景
 layout: post
 ---
-## Lorem ipsum dolor sit amet
+## **清风柔月淡似烟** 
 
-Lorem ipsum dolor sit amet ut paulo aperiam signiferumque quo. Quaeque pertinacia mnesarchum te vel. Ei tollit habemus delectus mel, pro zril cetero adipiscing an. Eius aliquip legimus ad mea, vix te quod eripuit, munere doctus oporteat qui te. Dolore fierent nam ea. Eos ex tale commune moderatius, ei mel malorum suscipit neglegentur. Has quod falli alienum ne.
-
-### Wisi impedit albucius cum no
-
-Wisi impedit albucius cum no. Pri nibh posse in. Tollit copiosae mei at, summo perfecto gubergren cum cu. Pri verterem dissentiet te, error option legendos te ius. Nihil sapientem expetenda in qui, usu no dicit option.
-
-#### Eam ad illud constituto
-
-Eam ad illud constituto, ne urbanitas reprimique qui. Ad duo quas quando vivendo, insolens accusamus ne vim. Ne vel lorem legimus commune, eam autem laudem ne, oratio cetero voluptatibus in cum. Ea tamquam assueverit philosophia vix, erroribus eloquentiam consectetuer est ea. Enim feugait concludaturque ad ius, ne vel stet placerat.
-
-##### Te mea everti platonem sententiae
-
-Te mea everti platonem sententiae, ius te cibo partem suavitate, at qui quidam urbanitas. Qui inimicus repudiandae ne, nobis vivendo te sea, his alia vivendum in. Vitae imperdiet vis at, eu impetus volutpat expetendis duo. Vel sonet commune ne, aliquid adipisci te vis. Pri in simul rationibus signiferumque, aperiri constituto ei vel.
-
-Et modo dolorem referrentur usu. Exerci lobortis id mei, mel putant everti te. Qui error detraxit te, in vis ignota eripuit scripserit. Ut labore patrioque dissentiet has, feugiat propriae invidunt est ei, mei nostrud volutpat rationibus ei. Mea at graeci tritani, sint mediocrem vituperata no nec. Eu pri mazim vitae ocurreret, iudico graeco consectetuer mel cu, quo dico maiorum ei.
+“敏尔好学”，子曰！有此相陪，情何以堪。踏着碎步，辗转反复，别样的情调。也许伴随是种美，安全的陪伴又抑或是种德，柔美的路灯，轻轻走过，美美的感觉已然找到归宿。情，缘于心底的呐喊。散，许是偶然中的必然。花开终有花落，缘聚定有缘散，世事必然。淡然，轻轻的一份守候，换回的未必是轻轻的祝福和美好的结局。合适，有合才会适。若未能在一起就谈合适，未免轻巧了点。但若真能做到，又何尝不是一种伟大。父母之命，一辈又一辈。既感叹于迂腐，又叹息于无奈。但若丝丝艰难都无法逾越，爱的回忆又要用何叙写。记忆最多，牵着的感觉很是美妙，淡淡的，就像那清风柔月淡似烟！纪念我那未实现的坚持！
