@@ -1,11 +1,15 @@
-<hr class="post-list__divider " />
-
-<nav class="pagination" role="navigation">
-    {% if paginator.previous_page %}
-        <a class="newer-posts pagination__newer btn btn-small btn-tertiary" href="{{ paginator.previous_page_path }}#blog">&larr; 最近</a>
-    {% endif %}
-    <span class="pagination__page-number">{{ paginator.page }} / {{ paginator.total_pages }}</span>
-    {% if paginator.next_page %}
-        <a class="older-posts pagination__older btn btn-small btn-tertiary" href="{{ paginator.next_page_path }}#blog">更早 &rarr;</a>
-    {% endif %}
-</nav>
+<div class="pagination is-centered">
+  {% if paginator.previous_page %}
+    <a href="{{ paginator.previous_page_path | relative_url }}" class="pagination-previous">Previous</a>
+  {% else %}
+    <span class="pagination-previous is-left">Previous</span>
+  {% endif %}
+  <span class="pagination-list">
+    Page: {{ paginator.page }} of {{ paginator.total_pages }}
+  </span>
+  {% if paginator.next_page %}
+    <a class="pagination-next" href="{{ paginator.next_page_path | relative_url }}" class="next">Next</a>
+  {% else %}
+    <span class="pagination-next">Next</span>
+  {% endif %}
+</div>
