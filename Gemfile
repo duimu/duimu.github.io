@@ -1,9 +1,11 @@
-source 'https://rubygems.org'
+source "http://rubygems.org"
 
-gem 'jekyll', '3.8.4'
+gem 'github-pages', group: :jekyll_plugins do
 
-group :jekyll_plugins do
-  gem 'jekyll-feed', '0.11.0'
-  gem 'jekyll-seo-tag', '2.5.0'
-  gem 'jekyll-sitemap', '1.2.0'
+gem 'jekyll-paginate'
+
+gem 'jekyll-sitemap'
+
+gem 'jekyll', '~> 3.6'
+
 end

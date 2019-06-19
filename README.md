@@ -1,66 +1,57 @@
-# Edition
+# Soot Spirits Jekyll Theme
 
-Product documentation template for Jekyll. Browse through a [live demo](https://long-pig.cloudvent.net/).
-Start documenting your product, application, service or website with this configurable theme.
+Soot Spirits is a responsive mobile ready lightweight two column Jekyll theme made with Bulma CSS. It is a great template for simple personal blogs with focus on typography.
 
-![Edition template screenshot](images/_screenshot.png)
+![mobile](tmp/mobile.png)
 
-Edition was made by [CloudCannon](http://cloudcannon.com/), the Cloud CMS for Jekyll.
+The text is made beautiful with combination of [League Gothic](https://www.fontsquirrel.com/fonts/league-gothic), [Roboto](https://fonts.google.com/specimen/Roboto) and [Open Sans](https://fonts.google.com/specimen/Open+Sans). Now who doesn't love them.
 
-Find more templates, themes and step-by-step Jekyll tutorials at [CloudCannon Academy](https://learn.cloudcannon.com/).
+![text](tmp/langslide.gif)
 
-## Features
+### Demo
+[sootspirits.github.io](https://sootspirits.github.io)
 
-* Two column layout
-* Full text search
-* Pre-styled components
-* Auto-generated navigation based on category
-* Optimised for editing in [CloudCannon](http://cloudcannon.com/)
-* Change log
-* RSS/Atom feed
-* SEO tags
-* Google Analytics
+### Some Good Features
 
-## Setup
+- Fully mobile ready
+- Beautiful typography
+- Two column layout suitable for a wide range of blogging habits
+- Fully customisable theme including the 'hello' text, quotes, nav items and sidebar widgets
 
-1. Add your site and author details in `_config.yml`.
-2. Get a workflow going to see your site's output (with [CloudCannon](https://app.cloudcannon.com/) or Jekyll locally).
+### Screenshots
+##### Deskop browser (full width)
+![fullwidth](tmp/fullwidth.png)
 
-## Develop
+##### Tablet browser (iPad)
+![tab](tmp/ipad.png)
 
-Edition was built with [Jekyll](http://jekyllrb.com/) version 3.3.1, but should support newer versions as well.
+##### Mobile browser (320px and greater)
+![mobile](tmp/mobile.png)
 
-Install the dependencies with [Bundler](http://bundler.io/):
+##### Hamburger menu toggle
+![hamburger](tmp/hamburger.gif)
 
-~~~bash
-$ bundle install
-~~~
+##### Basic navigation and footer
+![navi](tmp/navi.gif)
 
-Run `jekyll` commands through Bundler to ensure you're using the right versions:
+### Theme Usage
 
-~~~bash
-$ bundle exec jekyll serve
-~~~
+- [Get started](https://jekyllrb.com/docs/installation/) with having the necessary tools set up
+- Download the zip of this project or simple clone it
+- Delete the ```tmp/``` directory and any sample ```_posts```
+- Customize the variables in ```_config.yml``` file such that it reflects your information. Similarly, change the disqus username (or remove it altogether).
+- Replace footer links in the ```_layouts/default.html``` file with yours.
+- Replace the ```site:example.com``` in ```assets/js/custom.js``` with your site's address.
 
-## Editing
+### Credits
+- [Codepen hi-im-si](http://codepen.io/hi-im-si/pen/DHoup) for the header 'hello' typewriter text
+- [Bulma CSS](bulma.io/)
+- [Jekyll](https://jekyllrb.com)
+- [Github](https://github.com)
 
-Edition is already optimised for adding, updating and removing documentation pages in CloudCannon.
+### Licence
+MIT
 
-### Documentation pages
 
-* Add, update or remove a documentation page in the *Documentation* collection.
-* Change the category of a documentation page to move it to another section in the navigation.
-* Documentation pages are organised in the navigation by category, with URLs based on the path inside the `_docs` folder.
-
-### Change log
-
-* Add, update or remove change log entries from your posts.
-* Tag entries as minor or major in the front matter.
-
-### Search
-
-* Add `excluded_in_search: true` to any documentation page's front matter to exclude that page in the search results.
-
-### Navigation
-
-* Change `site.show_full_navigation` to control all or only the current navigation group being open.
+### What's up with the name?
+I was watching [My Neighbour Totoro](https://en.wikipedia.org/wiki/Susuwatari) while developing :-)
