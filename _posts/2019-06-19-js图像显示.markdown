@@ -9,6 +9,7 @@ tags: [青春记忆]
 
 ## js显示图像，各种图形操作
 
-\_posts\文件\fc\main.html
+
 
 This is an [example link](http://example.com/ "With a Title"). 
+
