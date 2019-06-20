@@ -2,53 +2,52 @@
 title: ModbusTcp
 layout: post
 ---
-## Lorem ipsum dolor sit amet
+## 代码:
 
-#pragma pack(2)
-struct MesCommuStruct
-{
-	WORD wStatus;
-	DWORD dwTotal;
-	DWORD dwError;
-	DWORD dwGood;
-	WORD wAlarm;
-};
-#pragma pack()
-
-std::string sendMessage(const char* receive_message,int nLength)
-{
-	//目前收到的数据长度都是12，且必须等于12
-	if (nLength!=12)
+	#pragma pack(2)
+	struct MesCommuStruct
 	{
-		return std::string();
-	}
-	//数据转换时，需要将word用htons函数转化字节序，dword用htons转化字节序
-	MesCommuStruct data;
-	switch (CParameterCfg::m_SysStatus.m_nStatus)
+		WORD wStatus;
+		DWORD dwTotal;
+		DWORD dwError;
+		DWORD dwGood;
+		WORD wAlarm;
+	};
+	#pragma pack()
+	
+	std::string sendMessage(const char* receive_message,int nLength)
 	{
-	case 0:
-		data.wStatus = 0;
-		data.wAlarm = htons(1);
-		break;
-	case 1:
-		break;
-		data.wStatus = htons(1);
-		data.wAlarm = htons(1);
-	case 2:
-		data.wStatus = htons(1);
-		data.wAlarm = htons(1);
-		break;
-	case 3:
-		data.wStatus = htons(2);
-		data.wAlarm = 0;
-		break;
-	default:
-		break;
-	}
-	data.dwTotal = ntohl(_nTotalCount);
-	data.dwError = ntohl(nErrorCount;
-	data.dwGood = ntohl(nGoodCount);
-
+		//目前收到的数据长度都是12，且必须等于12
+		if (nLength!=12)
+		{
+			return std::string();
+		}
+		//数据转换时，需要将word用htons函数转化字节序，dword用htons转化字节序
+		MesCommuStruct data;
+		switch (CParameterCfg::m_SysStatus.m_nStatus)
+		{
+		case 0:
+			data.wStatus = 0;
+			data.wAlarm = htons(1);
+			break;
+		case 1:
+			break;
+			data.wStatus = htons(1);
+			data.wAlarm = htons(1);
+		case 2:
+			data.wStatus = htons(1);
+			data.wAlarm = htons(1);
+			break;
+		case 3:
+			data.wStatus = htons(2);
+			data.wAlarm = 0;
+			break;
+		default:
+			break;
+		}
+		data.dwTotal = ntohl(_nTotalCount);
+		data.dwError = ntohl(nErrorCount;
+		data.dwGood = ntohl(nGoodCount);
 	//固定包头
 	std::string strResult;
 	for (int i = 0; i <= 4; i++)
