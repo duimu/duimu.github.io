@@ -1,0 +1,77 @@
+---
+layout: post
+title: 7zip文件目录压缩
+date: "2018-04-28 13:30:00 -0700"
+tags: [7zip, 文件压缩]
+---
+
+
+
+## 代码:
+
+
+
+~~~
+CompressOperation
+	{
+		Compress_,
+		UnCompress_,
+	};
+	
+bool FilesCompress(const char* strResPath, const char *strDesPath, CompressOperation nOperation);
+~~~
+
+And here is the same code with syntax highlighting:
+
+```javascript
+bool FilesCompress(const char* strResPath, const char *strDesPath, CompressOperation nOperation)
+{
+	bool bResult = false;
+	SevenZip::SevenZipLibrary lib;
+	lib.Load(L"Module\\7z.dll");
+
+	TCHAR wcsDesData[MAX_PATH];
+	memset(wcsDesData, 0, MAX_PATH);
+	MultiByteToWideChar(CP_ACP, 0, strDesPath, MAX_PATH, wcsDesData, MAX_PATH);
+
+	TCHAR wcsSrcData[MAX_PATH];
+	memset(wcsSrcData, 0, MAX_PATH);
+	MultiByteToWideChar(CP_ACP, 0, strResPath, MAX_PATH, wcsSrcData, MAX_PATH);
+
+	if (nOperation == Compress_)
+	{		
+
+		SevenZip::SevenZipCompressor compressor(lib, wcsDesData);
+		compressor.SetCompressionFormat(SevenZip::CompressionFormat::Zip);
+		compressor.UseAbsolutePaths(false);
+		compressor.SetPassword(_T("password"));
+	
+		compressor.AddDirectory(wcsSrcData);
+
+		CCompressCallBack callback;
+		callback.m_bCompress = true;
+		bResult=compressor.DoCompress(&callback);
+	}
+	else
+	{
+		SevenZip::SevenZipExtractor extractor(lib, wcsSrcData);
+		// Try to detect compression type
+		if (!extractor.DetectCompressionFormat())
+		{
+			extractor.SetCompressionFormat(SevenZip::CompressionFormat::Zip);
+		}
+		extractor.SetPassword(_T("password"));
+		CCompressCallBack callback;
+		callback.m_bCompress = false;
+		bResult = extractor.ExtractArchive(wcsDesData, &callback);
+	}
+		
+	
+	lib.Free();
+
+
+	return bResult;
+}
+```
+
+ [7zip依赖库.zip](文件\7zip依赖库.zip) 
