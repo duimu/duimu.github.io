@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset='utf-8'>
+		<title>图片加载平移放大缩小示例</title>
+		<style>
+			html,body{
+				margin:0px;
+				padding:0px;
+			}
+			canvas{
+				border: 1px solid #000;
+			}
+			
+        </style>
+          <script type="text/javascript" src="FigureControl.js"></script>   
+        <script language="JavaScript">
+		function setImageData(imageBase64) {	
+		    var myImg  = "data:image/jpeg;base64," + imageBase64;
+        
+        FigureControlTest.LoadImageFromFile(myImg)
+        //FigureControlTest1.LoadImageFromFile(myImg)
+        }
+        
+
+        function TestODrawRect()
+        {
+            var Rect=new CRect(100,100,200,200);          
+            FigureControlTest.O_DrawRectFigure(Rect,'#00ff00','name');
+        }
+
+        function GetFigurePosi()
+        {
+            var id=FigureControlTest.GetCurrentSelectFigureId();
+            if(id>0)
+            {
+                var figure=new Figure;
+                figure=FigureControlTest.GetFigure(id);
+                alert(figure.figure_rect.left+" "+figure.figure_rect.right+" "+figure.figure_rect.top+" "+figure.figure_rect.bottom);
+            }
+            
+        }
+
+        function GetFigureID()
+        {
+            var id=FigureControlTest.GetCurrentSelectFigureId();
+            alert(id);
+        }
+
+        function ShowCenter()
+        {
+            var pt=new CPoint;
+            pt.x=100;
+            pt.y=100;
+            FigureControlTest.ShowPositionLabel(true,pt,false);         
+        }
+		</script>
+      
+	</head>
+	<body height="100%" width="100%">
+		<table>
+        <tr>
+                <td>
+                    <input name="Rect" type="button" 
+                    value="上一步"  sytle="width=50px;height=50px;"onClick="FigureControlTest.BackHis();">
+                </td>
+                <td>
+                    <input name="Rect" type="button" 
+                    value="下一步"  sytle="width=50px;height=50px;"onClick="FigureControlTest.ForwHis();">                  
+                </td>
+            </tr>
+        <tr>
+        	<td><input name="Rect" type="button" 
+                value="多边形"  sytle="width=50px;height=50px;"onClick="FigureControlTest.DrawPolyFigure('name','#ff00ff');">
+            </td>
+            <td><input name="Rect" type="button" 
+                value="五点多边形"  sytle="width=50px;height=50px;"onClick="FigureControlTest.DrawPolyFigure('name','#ff00ff');FigureControlTest.SetPolyPointCount(5);">
+            </td>
+            <td><input name="Rect" type="button" 
+                value="圆形"  sytle="width=50px;height=50px;"onClick="FigureControlTest.DrawCircleFigure('name','#ffff00');">
+            </td>
+            <td><input name="Rect" type="button" 
+                 value="矩形"  sytle="width=50px;height=50px;"onClick="FigureControlTest.DrawRectFigure('name','#00ff00');">
+            </td>
+            <td><input name="Rect" type="button" 
+                value="双方框"  sytle="width=50px;height=50px;"onClick="FigureControlTest.DrawDoubleRectFigure('name','#00ffff');">
+            </td>    
+            <td>
+                <input name="Rect" type="button" 
+                value="停止绘制"  sytle="width=50px;height=50px;"onClick="FigureControlTest.ClearDrawStatus()">
+             </td>
+        </tr>
+         <tr>
+            <td>
+                <input name="Rect" type="button" 
+                value="导入矩形"  sytle="width=50px;height=50px;"onClick="TestODrawRect();">          
+            </td>
+            <td>
+                <input name="Rect" type="button" 
+                value="删除矩形"  sytle="width=50px;height=50px;"onClick="FigureControlTest.DeleteFigureType(RectType);">
+             </td>
+             <td>
+                <input name="Rect" type="button" 
+                value="删除当前选中图形"  sytle="width=50px;height=50px;"onClick="FigureControlTest.DeleteSelectFigure(FigureControlTest.GetCurrentSelectFigureId());">
+             </td>
+             <td>
+                    <input name="Rect" type="button" 
+                    value="清空图形"  sytle="width=50px;height=50px;"onClick="FigureControlTest.ClearAllFigures();">
+                </td>
+             <td>
+                <input name="Rect" type="button" 
+                value="填充图形"  sytle="width=50px;height=50px;"onClick="FigureControlTest.FillFigure(FigureControlTest.GetCurrentSelectFigureId(),'rgba(0,255,0,0.5)');">
+             </td>
+             <td>
+                <input name="Rect" type="button" 
+                value="取消填充"  sytle="width=50px;height=50px;"onClick="FigureControlTest.CancelFillFigure(FigureControlTest.GetCurrentSelectFigureId());">
+             </td>
+        </tr>
+         <tr>        
+            <td>
+                <input name="Rect" type="button" 
+                value="获取位置"  sytle="width=50px;height=50px;"onClick="GetFigurePosi();">
+            </td>
+             <td>
+                 <input name="Rect" type="button" 
+                value="获取id"  sytle="width=50px;height=50px;"onClick="GetFigureID();">
+            </td>
+            <td>         
+                <input name="Rect" type="button" 
+                value="禁止图形拖动"  sytle="width=50px;height=50px;"onClick="FigureControlTest.ShowPointRect(false);">
+            </td>
+           
+            <td>
+                <input name="Rect" type="button" 
+                value="初始位置"  sytle="width=50px;height=50px;"onClick="FigureControlTest.BackToInitFigure();">
+            </td>
+            <td>
+                <input name="Rect" type="button" 
+                value="选中图形放大"  sytle="width=50px;height=50px;"onClick="FigureControlTest.FitFigureSize(FigureControlTest.GetCurrentSelectFigureId());">                  
+            </td>
+            <td>
+                <input name="Rect" type="button" 
+                value="显示中心"  sytle="width=50px;height=50px;"onClick="ShowCenter();">                  
+            </td>
+           
+        </tr> 
+        
+        
+         <canvas id="canvas" width="900" height="800"></canvas>
+             <script type="text/javascript" src="main.js"></script>
+       
+        	
+	</body>
+</html>
