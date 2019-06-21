@@ -1,164 +1,19 @@
 <!DOCTYPE html>
-<html lang="en-us">
+<html>
 
-{% include head.html %}
+  {% include head.html %}
 
-<body>
+  <body class="index">
 
-<section class="hero is-dark">
-  <div class="hero-body">
-    <div class="container">
-        <h1 class="title">
-          <span class="typewrite" data-period="2000" data-type='[ “你好”",hello", "namaste", "assalam o alaikum",
-          "sat srī akāl", "khammaghani", "hola", "bonjour", "nomoskaar", "guten tag", "kumusta", "salut", "nômoshkar"]'>
-            <span class="wrap"></span>
-          </span>
-        </h1>
-      <h4 class="subtitle" id="quote">
-      </h4>
-    </div>
-  </div>
-</section>
+    {% include header.html %}
+    {% include docs_header.html %}
+    {% if page.title %}
+      {% include banner.html %}
+    {% endif %}
 
-<div class="main-container">
-  <div class="tile is-ancestor is-vertical">
+    {{ content }}
+    
+    {% include footer.html %}
 
-
-    <nav class="nav has-shadow">
-
-      <div class="nav-left">
-
-        <a href="{{"/" | relative_url}}" class="nav-item">
-          <span class="icon">
-            <i class="fa fa-home" aria-hidden="true" title="Homepage"></i>
-          </span>
-        </a>      
-
-      </div>
-
-      <div class="nav-right nav-menu" id='nav-menu'>
-        <a href="{{ "/archive" | relative_url }}" class="nav-item">文章</a>
-        <a href="{{ "/tags" | relative_url }}" class="nav-item">标签</a>
-      </div>
-
-      <span class="nav-toggle" id="nav-toggle">
-          <span></span>
-          <span></span>
-          <span></span>
-    </nav>
-
-    <div class="tile is-parent">
-      <div class="tile is-8 is-child main">
-
-        {{ content }}
-
-      </div>
-
-      <div class="tile is-4 is-child">
-        <div class="tile is-parent is-vertical sidebar">
-
-          <div class="tile is-child widget">
-
-            <div class="card">
-              <header class="card-header">
-                <p class="card-header-title nice-title">
-                  最近提交
-                </p>
-              </header>
-              <div class="card-content">
-                <div class="content nice-text">
-                  <ul>
-                  {% for post in site.posts limit:5 %}
-                  <li><a href="{{ post.url | relative_url }}">
-                    {{ post.title }}
-                  </a></li>
-                  {% endfor %}
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="tile is-child widget">
-
-            <div class="card">
-              <header class="card-header">
-                <p class="card-header-title nice-title">
-                 我-duimu
-                </p>
-              </header>
-              <div class="card-content">
-                <div class="content nice-text">
-                  <img src="{{ site.baseurl }}/assets/images/Dust_Bunny.jpg"/>
-                </div>
-              </div>
-            </div>
-
-          </div>
-
-          <div class="tile is-child widget">
-            <div class="card">
-              <header class="card-header">
-                <p class="card-header-title nice-title">
-                  推荐地址
-                </p>
-              </header>
-              <div class="card-content">
-                <div class="content nice-text">
-                  <ul>
-                    <li>
-                      <a href="https://www.sohu.com/">搜狐</a>
-                    </li>      
-                    <li>
-                      <a href="https://www.ifeng.com/">凤凰</a>
-                    </li>      
-                    <li>
-                      <a href="https://www.zaobao.com/">早报</a>
-                    </li>     
-                       <li>
-                      <a href="https://www.ftchinese.com/">FT中文</a>
-                    </li>   
-                    <li>
-                      <a href="http://www.newsmth.net/">水木</a>
-                    </li>      
-                    <li>
-                      <a href="https://www.bd-film.cc/">电影</a>
-                    </li>      
-                        <li>
-                      <a href="https://gaj.beijing.gov.cn/rkgl/reserve/checkNameSexNum">北京查询姓名</a>
-                    </li>                                 
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
-
-        </div>
-
-      </div>
-
-    </div>
-
-  </div>
-</div>
-
-<footer class="footer">
-  <div class="container">
-    <div class="content has-text-centered">
-      <p>
-        Some rights reserved.
-      </p>  
-      <p>        
-        <a class="icon" href="mailto:duimu.a647052@m.yinxiang.com">
-          <i class="fa fa-envelope" title="Email"></i>
-        </a>
-      </p>
-    </div>
-  </div>
-</footer>
-
-<!-- js -->
-<script src="{{ site.baseurl }}/assets/js/custom.js"></script>
-<script src="{{ site.baseurl }}/assets/js/typewriter.js"></script>
-</body>
+  </body>
 </html>
