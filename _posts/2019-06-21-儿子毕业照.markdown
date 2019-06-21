@@ -9,5 +9,7 @@ tags: [毕业]
 
 ## 儿子毕业了....
 
-`![``GIF``]({{site.baseurl}}/assets/file/graduate.jpg)
+```
+![毕业证]({{ site.url }}/assets/file/graduate.jpg)
+```
 
