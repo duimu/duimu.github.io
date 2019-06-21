@@ -1,12 +1,12 @@
 # Site settings
-name: sightthink
+name: Sightthink
 email: duimu@qq.com
 author: duimu
 url: http://www.sightthink.com
 baseurl: ''
 description: think what in your sight!
 meta_description: 
-motto: It's our wits that make us men.
+motto: 卓识所以远见
 banner: 
 
 #permalink: /:categories/:year/:month/:day/:title/
