@@ -21,7 +21,7 @@ txtFile.onreadystatechange = function () {
             lines = txtFile.responseText.split("\n");
             randLine = lines[Math.floor((Math.random() * lines.length) + 1)];
             document.getElementById('quote').innerHTML = randLine ||
-                "图思-机器学习老牛"; // fallback quote
+                "图思"; // fallback quote
         }
     }
 };
