@@ -9,9 +9,4 @@ tags: [毕业]
 
 ## 儿子毕业了....
 
-```
-
-```
-
-毕业了![](https://www.sightthink.com/assets/images/graduate.jpg)
-
+![Crepe](https://www.sightthink.com/assets/images/graduate.jpg)
