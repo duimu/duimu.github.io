@@ -76,5 +76,4 @@ bool FilesCompress(const char* strResPath, const char *strDesPath, CompressOpera
 
 依赖库地址:
 
-[lib]: https://www.sightthink.com/assets/Files/7zip依赖库.zip
-
+https://www.sightthink.com/assets/Files/7zip依赖库.zip
