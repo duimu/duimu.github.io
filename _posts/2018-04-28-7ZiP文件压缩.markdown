@@ -76,4 +76,5 @@ bool FilesCompress(const char* strResPath, const char *strDesPath, CompressOpera
 
 依赖库地址:
 
-https://raw.githubusercontent.com/duimu/duimu.github.io/master/_posts/%E6%96%87%E4%BB%B6/7zip%E4%BE%9D%E8%B5%96%E5%BA%93.zip
+[lib]: https://www.sightthink.com/assets/Files/7zip依赖库.zip
+
