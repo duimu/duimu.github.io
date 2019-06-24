@@ -1,0 +1,15 @@
+---
+title: js显示图像
+layout: post
+date: "2019-06-19 14:12"
+tags: [js图像]
+---
+
+
+
+## js显示图像，各种图形操作
+
+
+
+ [实例](https://www.sightthink.com/assets/fc/main.html "With a Title"). 
+
