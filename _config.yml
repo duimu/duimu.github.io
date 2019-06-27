@@ -1,12 +1,12 @@
 # Site settings
-name: Sightthink
+name: SightThink
 email: duimu@qq.com
 author: duimu
 url: http://www.sightthink.com
 baseurl: ''
-description: think what in your sight!
+description: Think what in your sight!
 meta_description: 
-motto: think what in your sight!
+motto: Think what in your sight!
 banner: 
 
 #permalink: /:categories/:year/:month/:day/:title/
