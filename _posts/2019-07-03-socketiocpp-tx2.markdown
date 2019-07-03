@@ -20,9 +20,17 @@ tags: [socketiocpp, tx2]
 4.1.下载源码git clone https://github.com/zaphoyd/websocketpp.git
 4.2.下载成功后并不需要做任何工作，直接将websocketpp目录下的websocketpp目录copy到socket.io-client-cpp/lib目录下即可
 
-2 在socketio工程根目录下执行,根据自己的配置修改加粗部分。如果不需要ssh，可以不用配置
+5在socketio工程根目录下执行,根据自己的配置修改加粗部分。如果不需要ssh，可以不用配置
 
 cmake -DBOOST_ROOT:STRING=**/home/nvidia/code/v50/boost_1_58_0** -DBOOST_VER:STRING=1.58.0 INCLUDE_DIRECTORIES=./lib -DCMAKE_C_COMPILER=**/usr/bin/aarch64-linux-gnu-gcc-5** -DCMAKE_CXX_COMPILER=**/usr/bin/aarch64-linux-gnu-g++-5** -DCMAKE_CXX_FLAGS:STRING="-I./lib -std=c++11 -fPIC" ./
+
+6  make
+
+​    make install
+
+​     在built目录下既有 socketio 所需的5个lib 及头文件
+
+
 
 ---------------------
 

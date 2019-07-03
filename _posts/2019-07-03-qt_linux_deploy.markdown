@@ -2,7 +2,7 @@
 layout: post
 title: qt-linux-deploy
 date: "2019-07-02 10:24:000"
-tags: [linux, deploy]
+tags: [linux, deploy,tx2]
 
 ---
 
