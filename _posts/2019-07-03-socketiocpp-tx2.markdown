@@ -1,7 +1,7 @@
 ---
 layout: post
 title: socketiocpp
-date: "2018-07-02 10:31:000"
+date: "2019-07-02 10:31:000"
 tags: [socketiocpp, tx2]
 
 ---
@@ -24,7 +24,6 @@ tags: [socketiocpp, tx2]
 
 cmake -DBOOST_ROOT:STRING=**/home/nvidia/code/v50/boost_1_58_0** -DBOOST_VER:STRING=1.58.0 INCLUDE_DIRECTORIES=./lib -DCMAKE_C_COMPILER=**/usr/bin/aarch64-linux-gnu-gcc-5** -DCMAKE_CXX_COMPILER=**/usr/bin/aarch64-linux-gnu-g++-5** -DCMAKE_CXX_FLAGS:STRING="-I./lib -std=c++11 -fPIC" ./
 
-
---------------------- 
+---------------------
 
 附:在tx2上使用时发现socket emit报错，将emit修改为其它名称如emitData可以解决该问题
