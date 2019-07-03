@@ -1,6 +1,6 @@
 ---
 layout: post
-title: boost
+title: boost-tx2
 date: "2019-07-02 10:31:000"
 tags: [boost, tx2]
 
