@@ -1,5 +1,5 @@
 ---
-title: windows安装
+title: tensorflow windows安装
 layout: post
 date: "2018-09-01 14:12"
 tags: [tensorflow]
