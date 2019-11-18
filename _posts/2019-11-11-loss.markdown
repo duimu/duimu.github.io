@@ -1,6 +1,6 @@
 ---
 layout: loss
-title: tensorflow
+title: tensorflow-loss
 date: "2019-11-02 14:00:000"
 tags: [tensorflow, loss]
 

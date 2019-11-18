@@ -1,6 +1,6 @@
 ---
 layout: 线性回归
-title: tensorflow
+title: tensorflow-线性回归
 date: "2019-11-02 14:00:000"
 tags: [tensorflow, 线性回归]
 
