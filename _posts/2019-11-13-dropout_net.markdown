@@ -1,0 +1,59 @@
+---
+layout: 线性回归
+title: tensorflow
+date: "2019-11-02 14:00:000"
+tags: [tensorflow, 线性回归]
+
+---
+
+## 流程:
+
+```
+import tensorflow as tf
+import numpy as np
+
+"""
+x_data=np.random.rand(200,4)
+w_data=np.array([1,-2,3,-4])
+w_data=w_data.reshape(4,1)
+b_data=np.array([3.0])
+y_data=np.matmul(x_data,w_data)+b_data
+"""
+#---------------------------------------------------------生成数据
+weights=tf.constant([1.,-2.,3.,-4.])
+weights=tf.reshape(weights,[4,1])
+bias=tf.constant(3.0)
+
+x_data=np.random.rand(200,4)
+inputData=tf.Variable(tf.random_normal([200,4]))
+outputData=tf.matmul(inputData,weights)+bias
+
+
+#---------------------------------------------------------定义图
+x=tf.placeholder(tf.float32,shape=[200,4])
+y=tf.placeholder(tf.float32,shape=[200,1])
+
+w=tf.Variable(tf.random_normal([4,1]),name="weight")
+b=tf.Variable(1.0,name="bias")
+
+y1=tf.matmul(x,w)+b
+loss=tf.reduce_mean(tf.square(y1-y))
+optimizer=tf.train.GradientDescentOptimizer(learning_rate=0.01)
+train_step=optimizer.minimize(loss)
+
+init=tf.global_variables_initializer()
+
+with tf.Session() as sess:
+    sess.run(init)
+    print(sess.run(inputData))
+    print(sess.run(outputData))
+    x_data =inputData.eval(session=sess)
+    y_data= outputData.eval(session=sess)
+
+    for i in range(10000):
+        sess.run(train_step,feed_dict={x:x_data,y:y_data})
+        if i % 100 == 0:
+            #打印拟合出来的值
+            print(sess.run(w))
+            print(sess.run(b))
+```

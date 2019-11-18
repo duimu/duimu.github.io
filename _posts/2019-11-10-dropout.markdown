@@ -1,0 +1,13 @@
+---
+layout: dropout
+title: tensorflow
+date: "2019-11-02 14:00:000"
+tags: [tensorflow, dropout]
+
+---
+
+## 流程:
+
+根据一定概率将选定的值进行置0处理，同时剩下的值要除以对应的概率
+
+如：(Xi*p)/p      (i>=0 &&i<N) 

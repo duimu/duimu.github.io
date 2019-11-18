@@ -1,0 +1,69 @@
+---
+layout: loss
+title: tensorflow
+date: "2019-11-02 14:00:000"
+tags: [tensorflow, loss]
+
+---
+
+## 流程:
+
+1 标准线性回归
+
+```
+#define input number is 1,output num is 1
+x=tf.placeholder(float,"input")
+y=tf.placeholder(float,"output")
+
+w=tf.Variable(0.0)
+b=tf.Variable(0.0)
+y1=tf.matmul(x,w)+b
+loss=tf.square(y1-y,"loss")
+```
+
+
+
+2 多元线性回归
+
+```
+
+#define input number is n,features num is f,output num is 1
+x=tf.placeholder(float,name="input",shape=[n,f])
+y=tf.placeholder(float,name="output")
+
+w=tf.Variable(tf.random_normal([f,1]))
+b=tf.Variable(0.0)
+y1=tf.matmul(x,w)+b
+loss=tf.reduce_mean(tf.square(y1-y,"loss"))
+```
+
+
+
+3逻辑回归
+
+
+
+```
+#define input number is n,features num is f,output num is o
+x=tf.placeholder(float,name="input",shape=[n,f])
+y=tf.placeholder(float,1,name="output",shape=[1,o])
+
+w=tf.Variable(tf.random_normal([f,1]),name="weights")
+b=tf.Variable(tf.random_normal([1,o]),name="bias")
+y1=tf.matmul(x,w)+b
+
+entropy=tf.nn.softmax_cross_entropy_with_logits(y1,y)
+loss=tf.reduce_mean(entropy)
+----------------------------------------------------------------------------
+#根据需要选择下列之一
+
+// L1 正则化
+lamda=tf.constant(0.8)
+L1=lamda*tf.reduce_sum(tf.abs(w))
+loss+=L1
+
+//L2正则化
+lamda=tf.constant(0.8)
+L2=lamda*tf.nn.l2_loss(w)
+loss+=L2
+```
