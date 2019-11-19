@@ -1,0 +1,71 @@
+---
+layout: post
+title: tensorflow_mnist
+date: "2019-11-14 14:00:000"
+tags: [tensorflow, 逻辑回归]
+
+---
+
+## 流程:
+
+```
+import  tensorflow as tf
+import numpy as np
+
+from tensorflow.examples.tutorials.mnist import input_data
+mnist=input_data.read_data_sets("mnist",one_hot=True)
+
+x=tf.placeholder(tf.float32,shape=[None,784],name="x")
+y=tf.placeholder(tf.float32,shape=[None,10],name="y")
+
+x_t=tf.placeholder(tf.float32,shape=[None,784],name="x_t")
+y_t=tf.placeholder(tf.float32,shape=[None,10],name="y_t")
+
+W=tf.Variable(tf.zeros([784,10]))
+B=tf.Variable(tf.zeros([10]))
+
+t=tf.matmul(x,W)+B
+y1=tf.nn.softmax(t)
+entroy=tf.nn.softmax_cross_entropy_with_logits(logits=y1,labels=y)
+loss=tf.reduce_mean(entroy)
+
+t_t=tf.matmul(x_t,W)+B
+y1_t=tf.nn.softmax(t_t)
+correct_pred = tf.equal(tf.argmax(y1_t, 1), tf.argmax(y_t, 1))
+accuracy = tf.reduce_mean(tf.cast(correct_pred, tf.float32))
+
+optimizer=tf.train.GradientDescentOptimizer(learning_rate=0.01)
+train_step=optimizer.minimize((loss))
+
+init=tf.global_variables_initializer()
+
+
+
+batch_size=100
+epochs=int(mnist.train.num_examples/batch_size)
+
+
+
+
+with tf.Session() as sess:
+    sess.run(init)
+    """
+    x_data = {'images': mnist.train.images}['images']
+    y_data = mnist.train.labels
+    """
+    x_data_test = {'images': mnist.test.images}['images']
+    y_data_test = mnist.test.labels
+
+    for nStep in range(10000):
+        for n in range(epochs):
+            batch_x,batch_y=mnist.train.next_batch(batch_size)
+            sess.run(train_step,feed_dict={x:batch_x,y:batch_y})
+            lost=sess.run(loss,feed_dict={x:batch_x,y:batch_y})
+            acc=sess.run(accuracy,feed_dict={x_t:batch_x,y_t:batch_y})
+        test = sess.run(accuracy, feed_dict={x_t: batch_x[:256], y_t: batch_y[:256]})
+        print(nStep,lost,acc,test)
+
+
+
+
+```
