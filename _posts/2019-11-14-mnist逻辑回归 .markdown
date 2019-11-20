@@ -62,7 +62,7 @@ with tf.Session() as sess:
             sess.run(train_step,feed_dict={x:batch_x,y:batch_y})
             lost=sess.run(loss,feed_dict={x:batch_x,y:batch_y})
             acc=sess.run(accuracy,feed_dict={x_t:batch_x,y_t:batch_y})
-        test = sess.run(accuracy, feed_dict={x_t: batch_x[:256], y_t: batch_y[:256]})
+        test = sess.run(accuracy, feed_dict={x_t: x_data_test[:256], y_t: y_data_test[:256]})
         print(nStep,lost,acc,test)
 
 

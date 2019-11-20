@@ -1,0 +1,87 @@
+---
+layout: post
+title: tensorflow_mnist_全连接
+date: "2019-11-18 14:00:000"
+tags: [tensorflow, mnist，全连接]
+
+---
+
+## 流程:
+
+```
+import  tensorflow as tf
+import numpy as np
+import tensorflow.contrib.layers as layers
+from tensorflow.python import debug as tf_debug
+
+from tensorflow.examples.tutorials.mnist import input_data
+mnist=input_data.read_data_sets("mnist",one_hot=True)
+
+
+def ProcessLayers(input):
+    fc1=layers.fully_connected(input,30,activation_fn=tf.nn.relu,scope='fc1')
+    fc2=layers.fully_connected(fc1,256,activation_fn=tf.nn.relu,scope='fc2')
+    out=layers.fully_connected(fc2,10,activation_fn=None,scope='out')
+    return out
+
+
+
+x=tf.placeholder(tf.float32,shape=[None,784],name="x")
+y=tf.placeholder(tf.float32,shape=[None,10],name="y")
+y1=ProcessLayers(x)
+entroy=tf.nn.softmax_cross_entropy_with_logits(logits=y1,labels=y)
+loss=tf.reduce_mean(entroy)
+
+correct_pred = tf.equal(tf.argmax(y1, 1), tf.argmax(y, 1))
+accuracy = tf.reduce_mean(tf.cast(correct_pred, tf.float32))
+
+optimizer=tf.train.AdamOptimizer(learning_rate=0.01)
+train_step=optimizer.minimize(loss)
+init=tf.global_variables_initializer()
+
+batch_size=200
+epochs=int(mnist.train.num_examples/batch_size)
+
+with tf.Session() as sess:
+    sess.run(init)
+
+    """
+    x_data = {'images': mnist.train.images}['images']
+    y_data = mnist.train.labels
+    """
+    x_data_test = {'images': mnist.test.images}['images']
+    y_data_test = mnist.test.labels
+
+    for nStep in range(100):
+        for n in range(epochs):
+            batch_x,batch_y=mnist.train.next_batch(batch_size)
+            sess.run(train_step,feed_dict={x:batch_x,y:batch_y})
+            lost=sess.run(loss,feed_dict={x:batch_x,y:batch_y})
+
+            acc=sess.run(accuracy,feed_dict={x:batch_x,y:batch_y})
+        test = sess.run(accuracy, feed_dict={x: x_data_test[:256], y: y_data_test[:256]})
+        print("epoch:%2d,lost:%.2f,acc:%.2f,test:%.2f"%(nStep,lost,acc,test))
+
+
+------------------------
+epoch: 0,lost:0.17,acc:0.94,test:0.97
+epoch: 1,lost:0.06,acc:0.98,test:0.97
+epoch: 2,lost:0.15,acc:0.96,test:0.98
+epoch: 3,lost:0.09,acc:0.96,test:0.97
+epoch: 4,lost:0.06,acc:0.98,test:0.98
+epoch: 5,lost:0.07,acc:0.98,test:0.96
+epoch: 6,lost:0.06,acc:0.98,test:0.97
+epoch: 7,lost:0.07,acc:0.98,test:0.96
+epoch: 8,lost:0.04,acc:1.00,test:0.98
+epoch: 9,lost:0.08,acc:0.97,test:0.95
+epoch:10,lost:0.04,acc:0.98,test:0.96
+epoch:11,lost:0.05,acc:0.99,test:0.96
+epoch:12,lost:0.07,acc:0.96,test:0.97
+epoch:13,lost:0.05,acc:0.98,test:0.97
+epoch:14,lost:0.07,acc:0.97,test:0.96
+epoch:15,lost:0.10,acc:0.98,test:0.97
+
+
+
+
+```

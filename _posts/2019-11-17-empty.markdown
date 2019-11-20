@@ -1,0 +1,19 @@
+---
+layout: post
+title: tensorflow_mnist_dnn
+date: "2019-11-16 14:00:000"
+tags: [tensorflow, mnist]
+
+---
+
+## 流程:
+
+```
+
+
+
+
+
+
+
+```

@@ -1,0 +1,71 @@
+---
+layout: post
+title: tensorflow_classfiy
+date: "2019-11-16 14:00:000"
+tags: [tensorflow, classfiy，tflearn]
+
+---
+
+## 流程:
+
+```from __future__ import division,print_function,absolute_import
+from __future__ import division,print_function,absolute_import
+import tflearn
+from tflearn.data_utils import  shuffle,to_categorical
+from tflearn.layers.core import input_data,dropout,fully_connected
+from tflearn.layers.conv import conv_2d,max_pool_2d
+from tflearn.layers.estimator import  regression
+from tflearn.data_preprocessing import ImagePreprocessing
+from tflearn.data_augmentation import ImageAugmentation
+from tflearn.datasets import cifar10
+
+#import data
+(X,Y),(X_test,Y_test)=cifar10.load_data(dirname="cifar10") #load_data数据也可以为空，自动下载，比较耗时
+X,Y=shuffle(X,Y)
+Y=to_categorical(Y,10)
+Y_test=to_categorical(Y_test,10)
+
+#preprocess
+img_prep=ImagePreprocessing()
+img_prep.add_featurewise_zero_center()
+img_prep.add_featurewise_stdnorm()
+
+#augmentation
+img_aug=ImageAugmentation()
+img_aug.add_random_flip_leftright()
+img_aug.add_random_rotation(max_angle=25.)
+
+#define networks
+network=input_data(shape=[None,32,32,3],data_preprocessing=img_prep,data_augmentation=img_aug)
+network=conv_2d(network,32,3,activation='relu')
+network=max_pool_2d(network,2)
+network=conv_2d(network,64,3,activation='relu')
+network=conv_2d(network,64,3,activation='relu')
+network=max_pool_2d(network,2)
+network=fully_connected(network,512,activation='relu')
+network=dropout(network,0.5)
+network=fully_connected(network,10,activation='softmax')
+network=regression(network,optimizer='adam',loss='categorical_crossentropy',learning_rate=0.001)
+
+#train
+model=tflearn.DNN(network,tensorboard_verbose=0)
+model.fit(X,Y,n_epoch=50,shuffle=True,validation_set=(X_test,Y_test),
+          show_metric=True,batch_size=96,run_id='cifar10_cnn')
+
+-------------------------------------------------
+
+Training Step: 5265  | total loss: 0.64463 | time: 0.558s
+| Adam | epoch: 011 | loss: 0.64463 - acc: 0.7726 -- iter: 05280/50000
+Training Step: 5266  | total loss: 0.66460 | time: 0.568s
+| Adam | epoch: 011 | loss: 0.66460 - acc: 0.7672 -- iter: 05376/50000
+Training Step: 5267  | total loss: 0.66508 | time: 0.579s
+| Adam | epoch: 011 | loss: 0.66508 - acc: 0.7665 -- iter: 05472/50000
+Training Step: 5268  | total loss: 0.65549 | time: 0.598s
+| Adam | epoch: 011 | loss: 0.65549 - acc: 0.7722 -- iter: 05568/50000
+
+在epoch11次的时候，acc为0.772，可以多迭代几次，精度会更高
+
+
+
+
+```

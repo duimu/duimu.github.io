@@ -1,0 +1,122 @@
+---
+layout: post
+title: tensorflow_mnist_卷积
+date: "2019-11-18 14:00:000"
+tags: [tensorflow, mnist，卷积]
+
+---
+
+## 流程:
+
+```
+import  tensorflow as tf
+import numpy as np
+import tensorflow.contrib.layers as layers
+from tensorflow.python import debug as tf_debug
+
+from tensorflow.examples.tutorials.mnist import input_data
+mnist=input_data.read_data_sets("mnist",one_hot=True)
+
+Weights={
+    "w1":tf.Variable(tf.random_normal([5,5,1,32])),
+    "w2":tf.Variable(tf.random_normal([3,3,32,49])),
+    "wf1":tf.Variable(tf.random_normal([7*7*49,1024])),
+    "out":tf.Variable(tf.random_normal([1024,10]))
+
+}
+
+bias={
+    "b1": tf.Variable(tf.random_normal([32])),
+    "b2":tf.Variable(tf.random_normal([49])),
+    "out":tf.Variable(tf.random_normal([10])),
+}
+
+#strides  [1, stride,stride, 1]
+#ksize [1, height, width, 1]
+def ProcessLayers(input):
+    #batch, height, width, channels
+    # data N 28*28  1
+    input = tf.reshape(input, shape=[-1, 28, 28, 1])
+
+    #data N 28 28 32
+    fc1=tf.nn.conv2d(input,Weights["w1"],strides=[1, 1, 1, 1],padding='SAME')
+    fc1=tf.nn.bias_add(fc1,bias["b1"])
+    # data N 14*14 32
+    fc1=tf.nn.max_pool(fc1,ksize=[1,2,2, 1],strides=[1, 2,2, 1],padding='SAME')
+
+    # data N 14*14 49
+    fc2=tf.nn.conv2d(fc1,Weights["w2"],strides=[1, 1, 1, 1],padding='SAME')
+    fc2=tf.nn.bias_add(fc2,bias["b2"])
+    # data N 7*7 49
+    fc2 = tf.nn.max_pool(fc2, ksize=[1,2,2, 1], strides=[1, 2,2, 1],padding='SAME')
+    fc2=tf.nn.relu(fc2)
+
+    #data N 1024
+    fc2=tf.reshape(fc2, [-1, Weights["wf1"].get_shape().as_list()[0]])
+    fc2=tf.matmul(fc2,Weights["wf1"])
+
+    # dropout 如果放在全连接之前，会导致参数丢失过多
+    fc2 = tf.nn.dropout(fc2, 0.5)
+
+    #data N 10
+    out=tf.matmul(fc2, Weights["out"])
+    out=tf.nn.bias_add(out,bias["out"])
+
+    return out
+
+
+
+
+x=tf.placeholder(tf.float32,shape=[None,784],name="x")
+y=tf.placeholder(tf.float32,shape=[None,10],name="y")
+y1=ProcessLayers(x)
+entroy=tf.nn.softmax_cross_entropy_with_logits(logits=y1,labels=y)
+loss=tf.reduce_mean(entroy)
+
+correct_pred = tf.equal(tf.argmax(y1, 1), tf.argmax(y, 1))
+accuracy = tf.reduce_mean(tf.cast(correct_pred, tf.float32))
+
+optimizer=tf.train.AdamOptimizer(learning_rate=0.01)
+train_step=optimizer.minimize(loss)
+init=tf.global_variables_initializer()
+
+batch_size=200
+epochs=int(mnist.train.num_examples/batch_size)
+
+with tf.Session() as sess:
+    sess.run(init)
+
+    """
+    x_data = {'images': mnist.train.images}['images']
+    y_data = mnist.train.labels
+    """
+    x_data_test = {'images': mnist.test.images}['images']
+    y_data_test = mnist.test.labels
+
+    for nStep in range(100):
+        for n in range(epochs):
+            batch_x,batch_y=mnist.train.next_batch(batch_size)
+            sess.run(train_step,feed_dict={x:batch_x,y:batch_y})
+            lost=sess.run(loss,feed_dict={x:batch_x,y:batch_y})
+
+            acc=sess.run(accuracy,feed_dict={x:batch_x,y:batch_y})
+        test = sess.run(accuracy, feed_dict={x: x_data_test[:256], y: y_data_test[:256]})
+        print("epoch:%2d,lost:%.2f,acc:%.2f,test:%.2f"%(nStep,lost,acc,test))
+        
+
+
+----------------------------------
+        
+        
+epoch: 0,lost:130.59,acc:0.94,test:0.95
+epoch: 1,lost:21.38,acc:0.98,test:0.95
+epoch: 2,lost:88.58,acc:0.94,test:0.95
+epoch: 3,lost:28.32,acc:0.95,test:0.96
+epoch: 4,lost:26.61,acc:0.96,test:0.96
+
+
+
+
+
+
+```
