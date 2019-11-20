@@ -1,14 +1,14 @@
 ---
 layout: post
 title: tensorflow_classfiy
-date: "2019-11-16 14:00:000"
+date: "2019-11-16 14:00:00"
 tags: [tensorflow, classfiy，tflearn]
 
 ---
 
 ## 流程:
 
-```from __future__ import division,print_function,absolute_import
+```
 from __future__ import division,print_function,absolute_import
 import tflearn
 from tflearn.data_utils import  shuffle,to_categorical
