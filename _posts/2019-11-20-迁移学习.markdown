@@ -1,0 +1,146 @@
+---
+layout: post
+title: tensorflow_迁移学习
+date: "2019-11-20 14:00:000"
+tags: [tensorflow, 迁移学习]
+
+---
+
+## 流程:
+
+```
+#使用猫狗数据集进行测试，初始网络为keras VGG16，也可以换为其它网络
+# -*- coding: utf-8 -*-
+
+"""
+@from:www.linerect.com
+
+@author:  duimu
+
+@contact: duimu@qq.com
+
+@Created on: 2019/11/21 9:31
+"""
+import  tensorflow as tf
+from keras import applications
+from keras.preprocessing.image import  ImageDataGenerator
+from keras.models import Sequential,Model
+from keras.layers import Dropout,Flatten,Dense
+from keras import  optimizers
+import cv2
+from PIL import Image
+import os
+
+image_width,image_height=256,256
+train_data_dir='dogs_cats/train'
+validation_data_dir='dogs_cats/validata'
+OUT_CATEGORIES=1
+nb_train_samples=2000
+nb_validation_samples=1000
+
+#loade vgg16
+base_model=applications.VGG16(weights="imagenet",include_top=False,input_shape=(image_width,image_height,3))
+print("base_model")
+base_model.summary()
+
+#freeze the first 15 layers
+#base_model.layers[:15].trainable=False
+for layer in base_model.layers[:15]:
+    layer.trainable = False
+
+#define networks
+#type 1
+"""
+top_model=Sequential()
+top_model.add(Flatten(input_shape=base_model.output_shape[1:]))
+top_model.add(Dense(256,activation='relu'))
+top_model.add(Dropout(0.5))
+top_model.add(Dense(OUT_CATEGORIES,activation='sigmoid'))
+print("top_model")
+top_model.summary()
+new_model = Model(inputs=base_model.input, outputs=top_model(base_model.output))
+"""
+#type 2
+top_model=base_model.output
+top_model=Flatten()(top_model)
+top_model=Dense(256,activation='relu')(top_model)
+top_model=Dropout(0.5)(top_model)
+top_model=Dense(OUT_CATEGORIES,activation='sigmoid')(top_model)
+
+print("new_model")
+new_model = Model(inputs=base_model.input, outputs=top_model)
+new_model.summary()
+
+#去掉注释，可以进行训练
+"""
+new_model.compile(optimizer=optimizers.SGD(lr=0.0001, momentum=0.9), loss='binary_crossentropy', metrics=['accuracy'])
+
+#训练数据
+
+batchsize=20
+steps=nb_train_samples//batchsize
+
+train_datagen = ImageDataGenerator(1/255.)
+train_generator = train_datagen.flow_from_directory(directory=train_data_dir,
+                                                    target_size=(image_width,image_height),
+                                                    class_mode='binary',
+                                                    batch_size=batchsize)
+test_datagen = ImageDataGenerator(1/255.)
+test_generator = test_datagen.flow_from_directory(directory=train_data_dir,
+                                                  target_size=(image_width,image_height),
+                                                  class_mode='binary',
+                                                  batch_size=batchsize)
+
+
+new_model.fit_generator(train_generator,
+                        steps_per_epoch=steps,
+                        epochs=5,
+                        validation_data=test_generator,
+                        validation_steps=steps,
+                        verbose=2,
+                        workers=12)
+
+new_model.save_weights("model/迁移学习.dat")
+
+score=new_model.evaluate_generator(test_datagen,nb_validation_samples/batchsize)
+s=new_model.predict_generator(test_datagen,nb_validation_samples/batchsize)
+
+"""
+#测试训练完成的数据
+###-----------------------------------------------------------------------------------------------
+#加载训练好的模型
+Model.load_weights(new_model,"model/迁移学习.dat")
+print("load_model")
+new_model.summary()
+
+def file_name(file_dir):
+    FileList=[]
+    for root, dirs, files in os.walk(file_dir):
+        for file in files:
+            if os.path.splitext(file)[1] == '.jpg':
+                FileList.append(os.path.join(root, file))
+    return FileList
+
+#获取文件名称
+filenames=file_name('F:/1_Tensorflow/1_Test_Projects/dogs_cats/validata')
+pathlen=len('F:/1_Tensorflow/1_Test_Projects/dogs_cats/validata')+1
+filenames.sort(key = lambda x: int(x[pathlen:-4]))
+
+for file in filenames :
+    #BGR
+    image = cv2.imread(os.path.join(file))
+    size = (image_width, image_height)
+    image = cv2.resize(image, size)
+    #转化RGB
+    img2 = image[:, :, :: -1]
+    input = tf.reshape(img2, shape=[-1, image_width, image_height, 3])
+    result = new_model.predict(input, steps=1)
+    print(result,file)
+
+
+
+
+
+
+
+```
