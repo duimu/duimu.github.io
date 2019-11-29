@@ -79,9 +79,22 @@ model.save("model\文字情感分析.dat")
 
 
 #------------------------------------------------------
+#.....
 
+| Adam | epoch: 005 | loss: 0.12761 - acc: 0.9614 -- iter: 22368/22500
+Training Step: 3516  | total loss: 0.12156 | time: 24.766s
+| Adam | epoch: 005 | loss: 0.12156 - acc: 0.9652 -- iter: 22400/22500
+Training Step: 3517  | total loss: 0.11845 | time: 24.800s
+| Adam | epoch: 005 | loss: 0.11845 - acc: 0.9656 -- iter: 22432/22500
+Training Step: 3518  | total loss: 0.11626 | time: 24.834s
+| Adam | epoch: 005 | loss: 0.11626 - acc: 0.9659 -- iter: 22464/22500
+Training Step: 3519  | total loss: 0.11048 | time: 24.868s
+| Adam | epoch: 005 | loss: 0.11048 - acc: 0.9693 -- iter: 22496/22500
+Training Step: 3520  | total loss: 0.10427 | time: 25.941s
+| Adam | epoch: 005 | loss: 0.10427 - acc: 0.9724 | val_loss: 0.55094 - val_acc: 0.7912 -- iter: 22500/22500
+--
 
-
+Process finished with exit code 0
 
 
 
