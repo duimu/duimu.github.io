@@ -1,0 +1,88 @@
+---
+layout: post
+title: tensorflow_mnist_dnn
+date: "2019-11-16 14:00:000"
+tags: [tensorflow, mnist]
+
+---
+
+## 流程:
+
+```
+# -*- coding: utf-8 -*-
+
+"""
+@from:www.linerect.com
+
+@author:  duimu
+
+@contact: duimu@qq.com
+
+@Created on: 2019/11/28 11:44
+"""
+import tensorflow as tf
+import tflearn
+from tflearn.layers.core import input_data,dropout,fully_connected
+from tflearn.layers.conv import conv_1d,global_max_pool
+from tflearn.layers.merge_ops import merge
+from tflearn.layers.estimator import regression
+from tflearn.data_utils import to_categorical,pad_sequences
+from tflearn.datasets import imdb
+
+"""
+字典有固定的长度，字典囊括了数据集中出现的词，词在字典中的位置按照词在数据集中出现的次数从大到小排列。
+比如这个字典中，‘the’在评论中出现次数最大，the放在字典的第一个位置上；‘and’出现的次数第二多，所以排在第二 …
+例如：
+评论为“I like this movie！”
+‘I’在字典中的index为9；
+‘like’在字典中的index为37；
+‘this’‘在字典中的index为10；
+‘movie’在字典中的index为16；
+‘！’在字典中的index为28；
+这个评论对应的词向量为[9 37 10 16 28]
+"""
+train,test,_=imdb.load_data(path='.\imdb\imdb.pkl',n_words=10000,valid_portion=0.1)
+trainX,trainY=train
+testX,testY=test
+trainX=pad_sequences(trainX,maxlen=100,value=0.)
+testX=pad_sequences(testX,maxlen=100,value=0.)
+
+trainY=to_categorical(trainY,nb_classes=2)
+testY=to_categorical(testY,nb_classes=2)
+
+print("size trianX",trainX.size)
+print("size testX",testX.size)
+print("size trainY",trainY.size)
+print("size testY",testY.size)
+
+network=input_data(shape=[None,100],name='input')
+network=tflearn.embedding(network,input_dim=10000,output_dim=128)
+
+#build network
+brach1=conv_1d(network,128,3,padding='valid',activation='relu',regularizer='L2')
+brach2=conv_1d(network,128,4,padding='valid',activation='relu',regularizer='L2')
+brach3=conv_1d(network,128,5,padding='valid',activation='relu',regularizer='L2')
+network=merge({brach1,brach2,brach3},mode='concat',axis=1)
+network=tf.expand_dims(network,2)
+network=global_max_pool(network)
+network=dropout(network,0.5)
+network=fully_connected(network,2,activation='softmax')
+
+network=regression(network,optimizer='adam',learning_rate=0.001,loss='categorical_crossentropy',name='target')
+
+model=tflearn.DNN(network,tensorboard_verbose=1,tensorboard_dir='log/情感分析/')
+model.fit(trainX,trainY,n_epoch=5,shuffle=True,validation_set=(testX,testY),
+          show_metric=True,batch_size=32)
+
+model.save("model\文字情感分析.dat")
+
+
+
+#------------------------------------------------------
+
+
+
+
+
+
+```
