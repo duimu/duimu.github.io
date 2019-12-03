@@ -1,0 +1,16 @@
+---
+layout: post
+title: RNN训练
+date: "2019-11-17 14:00:000"
+tags: [tensorflow, RNN]
+
+---
+
+## 流程:
+
+
+
+```
+
+
+```
