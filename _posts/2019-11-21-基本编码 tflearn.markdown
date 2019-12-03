@@ -1,0 +1,83 @@
+---
+layout: post
+title: tensorflow_cnn编码
+date: "2019-11-16 14:00:000"
+tags: [tensorflow, 基本编码]
+
+---
+
+## 流程:
+
+```
+# -*- coding: utf-8 -*-
+
+"""
+@from:www.linerect.com
+
+@author:  duimu
+
+@contact: duimu@qq.com
+
+@Created on: 2019/12/3 10:05
+"""
+
+from __future__ import division, print_function, absolute_import
+
+import numpy as np
+import matplotlib.pyplot as plt
+import tflearn
+
+# Data loading and preprocessing
+import tflearn.datasets.mnist as mnist
+X, Y, testX, testY = mnist.load_data(one_hot=True)
+
+# Building the encoder
+encoder = tflearn.input_data(shape=[None, 784])
+encoder = tflearn.fully_connected(encoder, 256)
+encoder = tflearn.fully_connected(encoder, 64)
+
+# Building the decoder
+decoder = tflearn.fully_connected(encoder, 256)
+decoder = tflearn.fully_connected(decoder, 784, activation='sigmoid')
+
+# Regression, with mean square error
+net = tflearn.regression(decoder, optimizer='adam', learning_rate=0.001,
+                         loss='mean_square', metric=None)
+
+# Training the auto encoder
+model = tflearn.DNN(net, tensorboard_verbose=0)
+model.fit(X, X, n_epoch=20, validation_set=(testX, testX),
+          run_id="auto_encoder", batch_size=256)
+
+# Encoding X[0] for test
+print("\nTest encoding of X[0]:")
+# New model, re-using the same session, for weights sharing
+encoding_model = tflearn.DNN(encoder, session=model.session)
+print(encoding_model.predict([X[0]]))
+
+# Testing the image reconstruction on new data (test set)
+print("\nVisualizing results after being encoded and decoded:")
+testX = tflearn.data_utils.shuffle(testX)[0]
+# Applying encode and decode over test set
+encode_decode = model.predict(testX)
+# Compare original images with their reconstructions
+f, a = plt.subplots(2, 10, figsize=(10, 2))
+for i in range(10):
+    temp = [[ii, ii, ii] for ii in list(testX[i])]
+    a[0][i].imshow(np.reshape(temp, (28, 28, 3)))
+    temp = [[ii, ii, ii] for ii in list(encode_decode[i])]
+    a[1][i].imshow(np.reshape(temp, (28, 28, 3)))
+f.show()
+plt.draw()
+
+
+#结果--------------------------------------
+Training Step: 4299  | total loss: 0.01334 | time: 0.656s
+| Adam | epoch: 020 | loss: 0.01334 -- iter: 54784/55000
+Training Step: 4300  | total loss: 0.01291 | time: 1.667s
+| Adam | epoch: 020 | loss: 0.01291 | val_loss: 0.00922 -- iter: 55000/55000
+--
+
+
+
+```
