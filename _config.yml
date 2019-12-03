@@ -1,12 +1,12 @@
 # Site settings
-name: SightThink
+name: LineRect
 email: duimu@qq.com
 author: duimu
 url: http://www.linerect.com
 baseurl: ''
-description: Think what in your sight!
+description: 
 meta_description: 
-motto: Think what in your sight!
+motto: 
 banner: 
 
 #permalink: /:categories/:year/:month/:day/:title/
