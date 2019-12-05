@@ -1,14 +1,14 @@
 ---
 layout: post
-title: tensorflow_mnist_dnn
+title: tensorflow_权重更新
 date: "2019-11-16 14:00:000"
-tags: [tensorflow, mnist]
+tags: [tensorflow, 权重更新]
 
 ---
 
 ## 流程:
 
-$$
+```
 import tensorflow as tf
 import numpy as np
 
@@ -133,5 +133,5 @@ epoch:13 mean error:0.0
  [ 2.208878 ]
  [ 0.3421445]
  [-2.5069637]]
-$$
+```
 
