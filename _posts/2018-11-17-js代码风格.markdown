@@ -1,7 +1,7 @@
 ---
 layout: post
-title: Google JavaScript 代码风格
-date: "2018-11-17 14:00:000"
+title: Google JavaScript代码风格
+date: "2018-11-17 14:00"
 tags: [JavaScript代码风格]
 
 ---
