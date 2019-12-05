@@ -1,7 +1,7 @@
 ---
 layout: post
 title: tensorflow_激活函数
-date: "2019-11-14 14:00:000"
+date: "2019-11-15 14:00:000"
 tags: [tensorflow, 激活函数]
 
 ---

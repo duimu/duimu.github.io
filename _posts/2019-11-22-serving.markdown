@@ -1,7 +1,7 @@
 ---
 layout: post
 title: tensorflow_serving
-date: "2019-11-16 14:00:000"
+date: "2019-11-22 14:00:000"
 tags: [tensorflow, serving]
 
 ---
@@ -30,8 +30,7 @@ TensorFlow Serving 运行一个 Docker 容器，这是一组组件，用于导�
 
    
    ![img](http://c.biancheng.net/uploads/allimg/190116/2-1Z116104G3I2.gif)
-    
-
+   
 5. 现在看一个保存模型的示例，以便服务器可以保存它。该例子是受一个示例启发得到的，构建 MNIST 训练器并为模型提供服务（
 
    https://github.com/tensorflow/serving/blob/master/tensorflow_serving/example/mnist_saved_model.py
@@ -40,8 +39,7 @@ TensorFlow Serving 运行一个 Docker 容器，这是一组组件，用于导�
 
    
    ![img](http://c.biancheng.net/uploads/allimg/190116/2-1Z116104K04T.gif)
-    
-
+   
 6. 模型可以用一个简单的命令来执行：
 
    
