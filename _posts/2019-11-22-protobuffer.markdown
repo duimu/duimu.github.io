@@ -50,7 +50,12 @@ Writer 负责将一些结构化的数据写入一个磁盘文件，Reader 则负
 ##### 清单 1. proto 文件
 
 ```
-`package lm; ``message helloworld ``{ ``   ``required int32     id = 1;  // ID ``   ``required string    str = 2;  // str ``   ``optional int32     opt = 3;  //optional field ``}`
+`package lm; 
+``message helloworld ``{ ``   
+``required int32     id = 1;  // ID ``   
+``required string    str = 2;  // str ``   
+``optional int32     opt = 3;  //optional field 
+``}`
 ```
 
 一个比较好的习惯是认真对待 proto 文件的文件名。比如将命名规则定于如下：
@@ -102,7 +107,19 @@ Writer 需要 include 该头文件，然后便可以使用这个类了。
 ##### 清单 2. Writer 的主要代码
 
 ```
-`#include "lm.helloworld.pb.h"``…` ` ``int main(void) `` ``{ ``  ` `  ``lm::helloworld msg1; ``  ``msg1.set_id(101); ``  ``msg1.set_str(“hello”); ``    ` `  ``// Write the new address book back to disk. ``  ``fstream output("./log", ios::out | ios::trunc | ios::binary); ``        ` `  ``if (!msg1.SerializeToOstream(&output)) { ``      ``cerr << "Failed to write msg." << endl; ``      ``return -1; ``  ``}         ``  ``return 0; `` ``}`
+`#include "lm.helloworld.pb.h"``…` ` 
+``int main(void) `` 
+``{ ``  
+` `  ``lm::helloworld msg1; 
+  ``  ``msg1.set_id(101); ``  
+      ``msg1.set_str(“hello”); ``    ` `  ``// Write the new address book back to disk. ``     ``fstream output("./log", ios::out | ios::trunc | ios::binary); ``        
+    ` `  ``if (!msg1.SerializeToOstream(&output)) 
+   			 { ``      
+   			 ``cerr << "Failed to write msg." << endl; ``     
+    		``return -1; ``  
+    		``}         
+    ``  ``return 0; `` ``
+    }`
 ```
 
 Msg1 是一个 helloworld 类的对象，set_id() 用来设置 id 的值。SerializeToOstream 将对象序列化后写入一个 fstream 流。
@@ -112,7 +129,26 @@ Msg1 是一个 helloworld 类的对象，set_id() 用来设置 id 的值。Seria
 ##### 清单 3. Reader
 
 ```
-`#include "lm.helloworld.pb.h" ``…`` ``void ListMsg(const lm::helloworld & msg) { ``  ``cout << msg.id() << endl; ``  ``cout << msg.str() << endl; `` ``} `` ` ` ``int main(int argc, char* argv[]) { ` `  ``lm::helloworld msg1; `` ` `  ``{ ``    ``fstream input("./log", ios::in | ios::binary); ``    ``if (!msg1.ParseFromIstream(&input)) { ``      ``cerr << "Failed to parse address book." << endl; ``      ``return -1; ``    ``} ``  ``} `` ` `  ``ListMsg(msg1); ``  ``… `` ``}`
+`#include "lm.helloworld.pb.h" ``…`` 
+``void ListMsg(const lm::helloworld & msg)
+{ ``  
+``cout << msg.id() << endl; `` 
+``cout << msg.str() << endl; `` 
+``} `` ` ` 
+
+``int main(int argc, char* argv[]) 
+{ ` ` 
+``lm::helloworld msg1; `` ` `  
+``{ ``    
+    ``fstream input("./log", ios::in | ios::binary); ``    
+    ``if (!msg1.ParseFromIstream(&input)) 
+        { ``      
+        ``cerr << "Failed to parse address book." << endl; ``      
+        ``return -1; ``    
+       ``} `` 
+  ``} `` ` `  
+``ListMsg(msg1); ``  ``… 
+`` ``}`
 ```
 
 同样，Reader 声明类 helloworld 的对象 msg1，然后利用 ParseFromIstream 从一个 fstream 流中读取信息并反序列化。此后，ListMsg 中采用 get 方法读取消息的内部信息，并进行打印输出操作。
@@ -176,7 +212,21 @@ XML 已经成为多种行业标准的编写工具，Protobuf 只是 Google 公�
 ##### 清单 4. 嵌套 Message 的例子
 
 ```
-`message Person { `` ``required string name = 1; `` ``required int32 id = 2;        // Unique ID number for this person. `` ``optional string email = 3; ` ` ``enum PhoneType { ``   ``MOBILE = 0; ``   ``HOME = 1; ``   ``WORK = 2; `` ``} ` ` ``message PhoneNumber { ``   ``required string number = 1; ``   ``optional PhoneType type = 2 [default = HOME]; `` ``} `` ``repeated PhoneNumber phone = 4; ``}`
+`message Person { `` 
+``required string name = 1; `` 
+``required int32 id = 2;        // Unique ID number for this person. `` 
+``optional string email = 3; ` ` 
+``enum PhoneType { ``   
+``MOBILE = 0; ``   
+``HOME = 1; ``   
+``WORK = 2; `` ``
+} ` `
+``message PhoneNumber { ``   
+``required string number = 1; ``   
+``optional PhoneType type = 2 [default = HOME]; `` 
+``} `` 
+``repeated PhoneNumber phone = 4; 
+``}`
 ```
 
 在 Message Person 中，定义了嵌套消息 PhoneNumber，并用来定义 Person 消息中的 phone 域。这使得人们可以定义更加复杂的数据结构。
@@ -190,7 +240,11 @@ XML 已经成为多种行业标准的编写工具，Protobuf 只是 Google 公�
 ##### 清单 5. 代码
 
 ```
-`import common.header; ` `message youMsg{ `` ``required common.info_header header = 1; `` ``required string youPrivateData = 2; ``}`
+`import common.header; ` `
+message youMsg{ `` 
+``required common.info_header header = 1; `` 
+``required string youPrivateData = 2; ``
+}`
 ```
 
 Import Message 的用处主要在于提供了方便的代码管理机制，类似 C 语言中的头文件。您可以将一些公用的 Message 定义在一个 package 中，然后在别的 .proto 文件中引入该 package，进而使用其中的消息定义。
@@ -220,7 +274,10 @@ Import 类对象中包含三个主要的对象，分别为处理错误的 MultiF
 ##### 清单 6. 代码
 
 ```
-`google::protobuf::compiler::MultiFileErrorCollector errorCollector；``google::protobuf::compiler::DiskSourceTree sourceTree; ` `google::protobuf::compiler::Importer importer(&sourceTree, &errorCollector); ``sourceTree.MapPath("", protosrc); ` `importer.import(“lm.helloworld.proto”);`
+`google::protobuf::compiler::MultiFileErrorCollector errorCollector；``google::protobuf::compiler::DiskSourceTree sourceTree; ` `google::protobuf::compiler::Importer 
+importer(&sourceTree, &errorCollector); 
+``sourceTree.MapPath("", protosrc); 
+` `importer.import(“lm.helloworld.proto”);`
 ```
 
 首先构造一个 importer 对象。构造函数需要两个入口参数，一个是 source Tree 对象，该对象指定了存放 .proto 文件的源目录。第二个参数是一个 error collector 对象，该对象有一个 AddError 方法，用来处理解析 .proto 文件时遇到的语法错误。
@@ -242,7 +299,10 @@ Package google::protobuf::compiler 中提供了以下几个类，用来表示一
 ##### 清单 7. 得到 lm.helloworld.id 的定义的代码
 
 ```
-`const protobuf::Descriptor *desc = ``   ``importer_.pool()->FindMessageTypeByName(“lm.helloworld”); ``const protobuf::FieldDescriptor* field = ``   ``desc->pool()->FindFileByName (“id”);`
+`const protobuf::Descriptor *desc = ``   
+``importer_.pool()->FindMessageTypeByName(“lm.helloworld”);
+``const protobuf::FieldDescriptor* field = `` 
+``desc->pool()->FindFileByName (“id”);`
 ```
 
 通过 Descriptor，FieldDescriptor 的各种方法和属性，应用程序可以获得各种关于 Message 定义的信息。比如通过 field->name() 得到 field 的名字。这样，您就可以使用一个动态定义的消息了。
@@ -367,7 +427,12 @@ Zigzag 编码用无符号数来表示有符号数字，正数和负数交错，�
 而如果用 XML，则类似这样：
 
 ```
-`31 30 31 3C 2F 69 64 3E 3C 6E 61 6D 65 3E 68 65 `` ``6C 6C 6F 3C 2F 6E 61 6D 65 3E 3C 2F 68 65 6C 6C `` ``6F 77 6F 72 6C 64 3E ` `一共 55 个字节，这些奇怪的数字需要稍微解释一下，其含义用 ASCII 表示如下：`` ``<``helloworld``> ``    ``<``id``>101</``id``> ``    ``<``name``>hello</``name``> `` ``</``helloworld``>`
+`31 30 31 3C 2F 69 64 3E 3C 6E 61 6D 65 3E 68 65 `` ``6C 6C 6F 3C 2F 6E 61 6D 65 3E 3C 2F 68 65 6C 6C `` ``6F 77 6F 72 6C 64 3E ` 
+`一共 55 个字节，这些奇怪的数字需要稍微解释一下，其含义用 ASCII 表示如下：`` 
+``<``helloworld``> ``    
+``<``id``>101</``id``> ``    
+``<``name``>hello</``name``> `` 
+``</``helloworld``>`
 ```
 
 ### 封解包的速度
