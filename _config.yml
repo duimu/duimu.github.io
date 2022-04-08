@@ -21,3 +21,4 @@ github_username: duimu
 markdown: kramdown
 
 baidu_analysis: 
+theme: jekyll-theme-minimal
