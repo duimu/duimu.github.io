@@ -1,15 +1,49 @@
-<footer class="footer" role="contentinfo">
-	<div class="container">
-		<p class="copyright">Copyright &copy; 2018-{{ site.time | date: '%Y' }} <a href="mailto:duimu@qq.com"><code>{{ site.author }}</code></a>.</p>
-			<a target="_blank" href="http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=mPzt8fXt2Onptvv39Q" style="text-decoration:none;">
-			<img src="http://rescdn.qqmail.com/zh_CN/htmledition/images/function/qm_open/ico_mailme_01.png"/>
-			</a>
-	</div>
-</footer>
+<!-- The Footer -->
 
-<script src="{{ '/styles/js/jquery.min.js' | prepend: site.baseurl }}"></script>
-<script src="{{ '/styles/js/bootstrap.min.js' | prepend: site.baseurl }}"></script>
-<script src="{{ '/styles/js/holder.min.js' | prepend: site.baseurl }}"></script>
-<script src="{{ '/styles/js/lessismore.js' | prepend: site.baseurl }}"></script>
-<script src="{{ '/styles/js/application.js' | prepend: site.baseurl }}"></script>
-<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<footer
+  aria-label="Site Info"
+  class="
+    d-flex flex-column justify-content-center text-muted
+    flex-lg-row justify-content-lg-between align-items-lg-center pb-lg-3
+  "
+>
+  <p>
+    {{- '©' }}
+    <time>{{ 'now' | date: '%Y' }}</time>
+
+    {% if site.social.links %}
+      <a href="{{ site.social.links[0] }}">{{ site.social.name }}</a>.
+    {% else %}
+      <em class="fst-normal">{{ site.social.name }}</em>.
+    {% endif %}
+
+    {% if site.data.locales[include.lang].copyright.brief %}
+      <span
+        data-bs-toggle="tooltip"
+        data-bs-placement="top"
+        title="{{ site.data.locales[include.lang].copyright.verbose }}"
+      >
+        {{- site.data.locales[include.lang].copyright.brief -}}
+      </span>
+    {% endif %}
+  </p>
+
+  <p>
+    {%- capture _platform -%}
+      <a href="https://jekyllrb.com" target="_blank" rel="noopener">Jekyll</a>
+    {%- endcapture -%}
+
+    {%- capture _theme -%}
+      <a
+        data-bs-toggle="tooltip"
+        data-bs-placement="top"
+        title="v{{ theme.version }}"
+        href="https://github.com/cotes2020/jekyll-theme-chirpy"
+        target="_blank"
+        rel="noopener"
+      >Chirpy</a>
+    {%- endcapture -%}
+
+    {{ site.data.locales[include.lang].meta | replace: ':PLATFORM', _platform | replace: ':THEME', _theme }}
+  </p>
+</footer>
